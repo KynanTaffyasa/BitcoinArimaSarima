@@ -98,14 +98,14 @@ if st.button("Fetch Bitcoin Price Data"):
                     if model_choice == "ARIMA":
                         model = ARIMA(df['Price'], order=(5, 0, 1))
                     else:
-                        model = SARIMAX(df['Price'], order=(1, 1, 1), seasonal_order=(1, 1, 1, 7))
+                        model = SARIMAX(df['Price'], order=(5, 0, 1), seasonal_order=(1, 1, 1, 7))
 
                     results = model.fit()
                     forecast = results.forecast(steps=forecast_days)
                     forecast_dates = pd.date_range(start=df.index[-1] + pd.Timedelta(days=1), periods=forecast_days)
 
                     # Plotting
-                    fig, ax = plt.subplots(figsize=(14, 7))
+                    fig, ax = plt.subplots(figsize=(24, 12))
                     ax.plot(df.index, df['Price'], label='Actual Price', color='blue', marker='o')
                     ax.plot(forecast_dates, forecast, label='Forecasted Price', color='orange', linestyle='--', marker='o')
 
